@@ -13,6 +13,7 @@ npm install
 ```
 
 3. Copy environment file and edit `.env` with your MongoDB URI and optional API key.
+   If you want separate storage for hand poses (and system face poses), also configure the collection names in `.env`.
 
 ## 2. Run
 
@@ -48,6 +49,14 @@ For desktop and WebGL builds, host this backend on a public server:
 - `GET /api/poses/:poseName?system=true|false`
 - `PUT /api/poses/:poseName?system=true|false`
 - `DELETE /api/poses/:poseName?system=true|false`
+- `GET /api/hand-poses?system=true|false`
+- `GET /api/hand-poses/:poseName?system=true|false`
+- `PUT /api/hand-poses/:poseName?system=true|false`
+- `DELETE /api/hand-poses/:poseName?system=true|false`
+- `GET /api/face-poses`
+- `GET /api/face-poses/:poseName`
+- `PUT /api/face-poses/:poseName`
+- `DELETE /api/face-poses/:poseName`
 
 ### PUT body example
 
@@ -61,3 +70,7 @@ For desktop and WebGL builds, host this backend on a public server:
   }
 }
 ```
+
+The hand pose endpoints use the same body shape, but they are stored in the dedicated hand collections.
+
+The face pose endpoints are stored system-only in `system_face_poses` and use the same body shape as other pose endpoints (including `pose.facialExpression`, which drives the face blendshapes via the UI sliders).
